@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	stages {
 
-		stage('Build Kubernetes Cluster') {
+		stage('Create Kubernetes Cluster') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''

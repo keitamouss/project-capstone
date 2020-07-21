@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	stages {
 
-		stage('Create Kubernetes Cluster') {
+		stage('Build Kubernetes Cluster') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
@@ -11,7 +11,7 @@ pipeline {
 						--version 1.14 \
 						--nodegroup-name standard-workers \
 						--node-type t3.medium \
-						--nodes 3 \
+						--nodes 2 \
 						--region us-west-2 \
 					'''
 				}

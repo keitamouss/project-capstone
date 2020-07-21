@@ -2,15 +2,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: capstone-service
+  name: capstone-service-green
   labels:
-    app: capstone
+    app: capstone-green
     role: green
     env: prod
 spec:
   type: LoadBalancer
   selector:
-    app: capstone
+    app: capstone-green
     role: green
   ports:
     - port: 80

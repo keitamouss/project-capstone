@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						kubectl apply -f ./kubernetes/blue_replication_controller.yml
+						kubectl apply -f ./kubernetes/blue_deployment.yml
 					'''
 				}
 			}
@@ -53,7 +53,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						kubectl apply -f ./kubernetes/green_replication_controller.yml
+						kubectl apply -f ./kubernetes/green_deployment.yml
 					'''
 				}
 			}

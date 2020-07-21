@@ -1,14 +1,16 @@
----
 kind: Service
 apiVersion: v1
 metadata:
-    name: bluegreenlb
-    labels:
-        app: bluegreenlb
+  name: capstone-service
+  labels:
+    app: capstone
+    role: green
+    env: prod
 spec:
-    ports:
-        - port: 8000
-          targetPort: 80
-    selector:
-        app: green
-    type: LoadBalancer
+  type: LoadBalancer
+  selector:
+    app: capstone
+    role: green
+  ports:
+    - port: 80
+      targetPort: 8080

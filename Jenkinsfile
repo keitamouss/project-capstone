@@ -2,84 +2,31 @@ pipeline {
 	agent any
 	stages {
 
-		stage('Lint HTML') {
-			steps {
-				sh 'tidy -q -e *.html'
-			}
-		}
-		
-		stage('Build Docker Image') {
-			steps {
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
-					sh '''
-						docker build -t moussa89/capstone .
-					'''
-				}
-			}
-		}
-
-		stage('Push Image To Dockerhub') {
-			steps {
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
-					sh '''
-						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-						docker push moussa89/capstone
-					'''
-				}
-			}
-		}
-
-		stage('Set Current kubectl Context') {
+		stage('Create Kubernetes Cluster') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						kubectl config use-context arn:aws:eks:us-west-2:486251485842:cluster/EKSCapstoneUdaCluster
+						eksctl create cluster \
+						--name MOUCapstoneUdaCluster \
+						--version 1.14 \
+						--nodegroup-name standard-workers \
+						--node-type t3.medium \
+						--nodes 2 \
+						--nodes 2 \
+						--nodes-min 1 \
+						--nodes-max 3 \
+						--node-ami auto \
+						--region us-west-2 \
 					'''
 				}
 			}
 		}
 
-		stage('Deploy Blue Container') {
+		stage('Configure kubectl') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						kubectl apply -f .kubernetes/blue_deployment.yml
-					'''
-				}
-			}
-		}
-
-		stage('Deploy green container') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws_credentials') {
-					sh '''
-						kubectl apply -f .kubernetes/green_deployment.yml
-					'''
-				}
-			}
-		}
-
-		stage('Create Service Pointing to Blue Replication Controller') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws_credentials') {
-					sh '''
-						kubectl apply -f .kubernetes/blue_service.yml
-					'''
-				}
-			}
-		}
-
-		stage('Approval for Redirection') {
-            steps {
-                input "Ready to redirect traffic to green replication controller?"
-            }
-        }
-
-		stage('Create Service Pointing to Green Replication Controller') {
-			steps {
-				withAWS(region:'us-west-2', credentials:'aws_credentials') {
-					sh '''
-						kubectl apply -f .kubernetes/green_service.yml
+						aws eks --region us-west-2 update-kubeconfig --name MOUCapstoneUdaCluster
 					'''
 				}
 			}
@@ -87,4 +34,3 @@ pipeline {
 
 	}
 }
-

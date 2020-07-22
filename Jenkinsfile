@@ -15,8 +15,6 @@ pipeline {
 						--nodes 3 \
 						--nodes-min 1 \
 						--nodes-max 4 \
-						--ssh-access \
-						--ssh-public-key /home/ubuntu/.ssh/id_rsa.pub \
 						--managed
 					'''
 				}

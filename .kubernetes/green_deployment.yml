@@ -2,20 +2,20 @@
 kind: ReplicationController
 apiVersion: v1
 metadata:
-    name: capstone-green
+    name: capstonegreen
     labels:
-        app: capstone-green
+        app: capstonegreen
 spec:
     replicas: 1
     selector:
-        app: capstone-green
+        app: capstonegreen
     template:
         metadata:
             labels:
-                app: capstone-green
+                app: capstonegreen
         spec:
             containers:
-                - name: capstone-green
+                - name: capstonegreen
                   image: moussa89/capstone
                   ports:
                       - name: http-server

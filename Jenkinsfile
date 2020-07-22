@@ -8,15 +8,16 @@ pipeline {
 					sh '''
 						eksctl create cluster \
 						--name MOUCapstoneUdaCluster \
-						--version 1.14 \
+						--version 1.17 \
+						--region us-west-2 \
 						--nodegroup-name standard-workers \
 						--node-type t3.medium \
-						--nodes 2 \
-						--nodes 2 \
+						--nodes 3 \
 						--nodes-min 1 \
-						--nodes-max 3 \
-						--node-ami auto \
-						--region us-west-2 \
+						--nodes-max 4 \
+						--ssh-access \
+						--ssh-public-key my-public-key.pub \
+						--managed
 					'''
 				}
 			}
@@ -26,7 +27,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						aws eks --region us-west-2 update-kubeconfig --name MOUCapstoneUdaCluster
+						aws --region us-west-2 eks update-kubeconfig --name MOUCapstoneUdaCluster --role-arn arn:aws:iam::486251485842:user/capstone
 					'''
 				}
 			}

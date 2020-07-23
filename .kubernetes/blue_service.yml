@@ -10,6 +10,6 @@ spec:
         - port: 8000
           targetPort: 80
     selector:
-        app:capstoneblue
+        app: capstoneblue
     type: LoadBalancer
 

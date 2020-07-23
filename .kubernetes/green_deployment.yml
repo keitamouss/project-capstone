@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
                 - name: capstonegreen
-                  image: moussa89/udacapstone
+                  image: moussa89/udacity-capstone
                   ports:
                       - name: http-server
                         containerPort: 80

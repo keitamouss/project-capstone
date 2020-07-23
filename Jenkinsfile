@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
-						docker build -t moussa89/udacapstone .
+						docker build -t moussa89/capstone-udacity .
 					'''
 				}
 			}
@@ -23,7 +23,7 @@ pipeline {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-						docker push moussa89/udacapstone
+						docker push moussa89/capstone-udacity
 					'''
 				}
 			}
@@ -33,7 +33,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'aws_credentials') {
 					sh '''
-						kubectl config use-context arn:aws:eks:us-west-2:486251485842:cluster/MOUCapstoneUdaCluster
+						kubectl config use-context arn:aws:eks:us-west-2:486251485842:cluster/CapstoneCluster
 					'''
 				}
 			}

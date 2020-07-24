@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
-                                                docker build . --tag=moucapstone
+                                                docker build -t moussa89/capstone-udacity .
 					'''
 				}
 			}
@@ -23,8 +23,7 @@ pipeline {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                                                docker image tag moucapstone moussa89/capstone-udacity
-                                                docker image push moussa89/capstone-udacity
+                                                docker push moussa89/capstone-udacity
 					'''
 				}
 			}

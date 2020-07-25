@@ -71,7 +71,7 @@ pipeline {
 
 		stage('Approval for Redirection') {
             steps {
-                input "Ready to redirect traffic to green replication controller?"
+                input "Ready to redirect traffic to green replication controller ?"
             }
         }
 

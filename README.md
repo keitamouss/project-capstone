@@ -18,7 +18,7 @@ In this project I have apply my skills and knowledge which were developed throug
 
 #### infra
 
-This folder all the files related to infrastructure deployment.
+Contains all the files related to infrastructure deployment.
 
 -   `jenkins-server-parameters.json`: Parameters file for cloud formation stack.
 -   `jenkins-server.yml`: CloudFormation template for creating jenkins server.
@@ -30,7 +30,7 @@ This folder all the files related to infrastructure deployment.
 
 #### kubernetes
 
-This folder contains all template files for Kubernetes resources.
+Contains all template files for Kubernetes resources.
 
 -   `blue_deployment.yml`: A replication controller template that creates pods with label as `app=capstoneblue`.
 -   `blue_service.yml`: A service template that selects all the pods with label as `app=capstoneblue`.
@@ -39,7 +39,7 @@ This folder contains all template files for Kubernetes resources.
 
 #### screenshots
 
-This folder contains all screenshots taken during creation of this project.
+Contains all screenshots taken during creation of this project.
 
 #### Dockerfile
 

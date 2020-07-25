@@ -16,17 +16,19 @@ In this project I have apply my skills and knowledge which were developed throug
 
 ## Project Files
 
-#### infra
+#### infrastructure
 
 Contains all the files related to infrastructure deployment.
 
 -   `jenkins-server-parameters.json`: Parameters file for cloud formation stack.
 -   `jenkins-server.yml`: CloudFormation template for creating jenkins server.
--   `Jenkinsfile`: Jenkinsfile for creating EKS cluster and configuring kubectl.
 -   `create.sh`: create cloud formation stack.
 -   `update.sh`: updated cloud formation stack.
 -   `delete.sh`: delete cloud formation stack.
 
+#### create_eks_cluster_and_configure
+
+Contains Jenkinsfile for creating EKS cluster and configuring kubectl
 
 #### kubernetes
 
